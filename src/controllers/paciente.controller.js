@@ -19,8 +19,13 @@ const getOnePaciente = async (req, res) => {
 };
 
 const postPaciente = async (req, res) => {
-  const response = await new paciente(req.body).save();
-  res.send({ response });
+  try {
+    const response = await new paciente(req.body).save();
+    res.send({ response });
+  } catch (error) {
+    res.status(400).send({ error: "error" });
+    console.log(`postPaciente - Error: ${error}`);
+  }
 };
 
 const modificarPaciente = async (req, res) => {
