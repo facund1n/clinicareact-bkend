@@ -19,8 +19,13 @@ const getOneMedico = async (req, res) => {
 };
 
 const postMedico = async (req, res) => {
-  const response = await new medico(req.body).save();
-  res.send({ response });
+  try {
+    const response = await new medico(req.body).save();
+    res.send({ response });
+  } catch (error) {
+    res.status(400).send({ error: "error" });
+    console.log(`postMedico - Error: ${error}`);
+  }
 };
 
 const modificarMedico = async (req, res) => {
